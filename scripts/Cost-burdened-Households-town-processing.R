@@ -41,7 +41,7 @@ for (data in acsdata) {
       cost_renter_pct_30 <- acsSum(data, 282, "Renter 30 Pct") #VC203 
       cost_renter_num_35 <- acsSum(data, 283, "Renter 35 Num") #VC204      
       cost_renter_pct_35 <- acsSum(data, 284, "Renter 35 Pct") #VC204     
-    } else if (year %in% c(2010, 2011, 2012)) {
+    } else {
       cost_home_total_num <- acsSum(data, 215, "Homeowner Total Num") #VC155
       cost_owner_num_30 <- acsSum(data, 223, "Homeowner 30 Num") #VC159
       cost_owner_pct_30 <- acsSum(data, 224, "Homeowner 30 Pct") #VC159
@@ -52,19 +52,8 @@ for (data in acsdata) {
       cost_renter_pct_30 <- acsSum(data, 278, "Renter 30 Pct") #VC196
       cost_renter_num_35 <- acsSum(data, 279, "Renter 35 Num") #VC197
       cost_renter_pct_35 <- acsSum(data, 280, "Renter 35 Pct") #VC197
-    } else { #2013, 2014
-      cost_home_total_num <- acsSum(data, 215, "Homeowner Total Num") #VC157
-      cost_owner_num_30 <- acsSum(data, 223, "Homeowner 30 Num") #VC161
-      cost_owner_pct_30 <- acsSum(data, 224, "Homeowner 30 Pct") #VC161
-      cost_owner_num_35 <- acsSum(data, 225, "Homeowner 35 Num") #VC162
-      cost_owner_pct_35 <- acsSum(data, 226, "Homeowner 35 Pct") #VC162
-      cost_rent_total_num <- acsSum(data, 267, "Renter Total Num") #VC196 
-      cost_renter_num_30 <- acsSum(data, 277, "Renter 30 Num") #VC196
-      cost_renter_pct_30 <- acsSum(data, 278, "Renter 30 Pct") #VC196
-      cost_renter_num_35 <- acsSum(data, 279, "Renter 35 Num") #VC197
-      cost_renter_pct_35 <- acsSum(data, 280, "Renter 35 Pct") #VC197
-    }
-
+    } 
+    
     datafips <- data.table(fips = getACSFips(data))
     estimates <- data.table(
         FIPS = datafips$fips,
