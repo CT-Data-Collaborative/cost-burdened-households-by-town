@@ -1,0 +1,289 @@
+{
+  "name": "cost-burdened-households-by-town",
+  "datapackage_version": "1.0-beta.18",
+  "title": "Cost-burdened Households by Town",
+  "description": "Cost-burdened Households by Town reports the number and percent of households that spend at least 30 percent of annual household income on housing costs, by householder status.",
+  "version": "1.0",
+  "licenses": [{
+    "url": "http://opendatacommons.org/licenses/pddl/",
+    "name": "Open Data Commons Public Domain",
+    "version": "1.0",
+    "id": "odc-pddl"
+  }],
+  "sources": [{
+    "name": "uscensus",
+    "web": ""
+  }],
+  "author":[{
+    "name": "Jenna Daly",
+    "email": "jdaly@ctdata.org",
+    "web": "http://ctdata.org"
+  }],
+  "contributor": [],
+  "resources": [{
+    "path": "data/cost-burdened-households-town-2016.csv",
+    "format": "csv",
+    "schema": {
+      "fields": [{
+          "name": "Town",
+          "type": "string",
+          "dimension": false
+        }, {
+          "name": "FIPS",
+          "type": "string",
+          "dimension": false
+        }, {
+          "name": "Year",
+          "type": "string",
+          "dimension": false
+        }, {
+          "name": "Householder Status",
+          "type": "string",
+          "dimension": true,
+          "constraints": {
+            "enum": ["All", "Homeowner", "Renter"]
+         }
+        }, {          
+          "name": "Measure Type",
+          "type": "string",
+          "dimension": true,
+          "constraints": {
+            "enum": ["Number", "Percent"]
+         }
+        }, {
+          "name": "Variable",
+          "type": "string",
+          "dimension": true,
+          "constraints": {
+            "enum": ["Cost-burdened Households", "Margins of Error"]
+         }
+        }, {
+          "name": "Value",
+          "type": "number",
+          "dimension": false
+        }]
+      }
+    }
+  ],
+  "last_modified": "03/05/2018",
+  "ckan_extras": {
+    "full_description": {
+      "ckan_name": "Full Description",
+      "value": "A household is cost-burdened if it spends 30 percent or more of annual household income on housing costs. Householder status subgroups are homeowners with a mortgage, renters and all householders; which includes both homeowners with a mortgage and renters. Housing costs for homeowners include utility, tax, mortgage, insurance, and related payments for the home. Renters' housing costs are gross rental and related payments. The American Community Survey (ACS) collects these data from a sample of households on a rolling monthly basis. ACS aggregates samples into one-, three-, or five-year periods. CTdata.org generally carries the five-year datasets, as they are considered to be the most accurate, especially for geographic areas that are the size of a county or smaller.",
+      "type": "string"
+    },
+    "suppression": {
+      "ckan_name": "Suppression",
+      "value": "",
+      "type": "string"
+    },
+    "technical_notes": {
+      "ckan_name": "Technical Notes",
+      "value": "The total number of units per subgroup does not include units where costs cannot be computed",
+      "type": "string"
+    },
+    "socrata": {
+      "ckan_name": "Socrata",
+      "value": "False",
+      "type": "string"
+    },
+    "socrata_url": {
+      "ckan_name": "Socrata Dataset URL",
+      "value": "",
+      "type": "string"
+    },
+    "socrata_dataset_name": {
+      "ckan_name": "Socrata Dataset Name",
+      "value": "",
+      "type": "string"
+    }, 
+    "domain": {
+      "ckan_name": "Domain",
+      "value": "Housing",
+      "type": "string"
+    },
+    "subdomain": {
+      "ckan_name": "Subdomain",
+      "value": "Household Characteristics",
+      "type": "string"
+    },
+    "geography": {
+      "ckan_name": "Geography",
+      "value": "Town",
+      "type": "string",
+      "constraints": {"enum": ["Town", "County", "Town/County", "District", "Other"]}
+    },
+    "frequency": {
+      "ckan_name": "Frequency",
+      "value": "Annual",
+      "type": "string"
+    },
+    "years_in_catalog": {
+      "ckan_name": "Years in Catalog",
+      "value": ["2006-2010", "2007-2011", "2008-2012", "2009-2013", "2010-2014", "2011-2015", "2012-2016"],
+      "type": "array"
+    },
+    "latest_year": {
+      "ckan_name": "Latest Year Available",
+      "value": "2012-2016",
+      "type": "string"
+    },
+    "disabled_views": {
+      "ckan_name": "Disabled Views",
+      "value": [],
+      "type": "array",
+      "constraints": {"enum": ["map", "table", "bar", "line"]}
+    },
+    "units": {
+      "ckan_name": "Units",
+      "value": {
+        "Number": "",
+        "Percent": "%"
+      }
+    },
+    "expected_number_of_geographies": {
+      "ckan_name": "Expected Number of Unique Geographies",
+      "value": 170,
+      "type": "string"
+    },     
+    "default": {      
+      "ckan_name": "Default",
+      "value": {
+        "Town": "Connecticut",
+        "Year": ["2012-2016"],
+        "Measure Type": "Percent", 
+        "Variable": "Cost-burdened Households"
+      },
+      "type": "object"
+    } 
+  },
+  "spot_checks": [
+    {
+      "type": "$lookup",
+      "filter": {
+        "Town": "Brookfield",
+        "Year":	"2006-2010",
+        "Variable":	"Margins of Error",
+        "Measure Type":	"Number",
+        "Householder Status": "All"
+      },
+      "expected": {
+        "type": "$match",
+        "number type": "float",
+        "value": 241.81
+      } 
+    },
+    {
+      "type": "$lookup",
+      "filter": {
+        "Town": "Darien",
+        "Year":	"2007-2011",
+        "Variable":	"Cost-burdened Households",
+        "Measure Type":	"Percent",
+        "Householder Status": "Homeowner"
+      },
+      "expected": {
+        "type": "$match",
+        "number type": "float",
+        "value": 36.6
+      } 
+    },
+    {
+      "type": "$lookup",
+      "filter": {
+        "Town": "Meriden",
+        "Year":	"2008-2012",
+        "Variable":	"Margins of Error",
+        "Measure Type":	"Number",
+        "Householder Status": "Renter"
+      },
+      "expected": {
+        "type": "$match",
+        "number type": "float",
+        "value": 394.95
+      } 
+    }, 
+    {
+      "type": "$lookup",
+      "filter": {
+        "Town": "North Stonington",
+        "Year":	"2009-2013",
+        "Variable":	"Cost-burdened Households",
+        "Measure Type":	"Percent",
+        "Householder Status": "All"
+      },
+      "expected": {
+        "type": "$match",
+        "number type": "float",
+        "value": 41.02
+      } 
+    }, 
+    {
+      "type": "$lookup",
+      "filter": {
+        "Town": "Stamford",
+        "Year":	"2010-2014",
+        "Variable":	"Cost-burdened Households",
+        "Measure Type":	"Number",
+        "Householder Status": "Homeowner"
+      },
+      "expected": {
+        "type": "$match",
+        "number type": "int",
+        "value": 8290
+      } 
+    }, 
+    {
+      "type": "$lookup",
+      "filter": {
+        "Town": "Winchester",
+        "Year":	"2011-2015",
+        "Variable":	"Margins of Error",
+        "Measure Type":	"Percent",
+        "Householder Status": "Renter"
+      },
+      "expected": {
+        "type": "$match",
+        "number type": "float",
+        "value": 11.14
+      } 
+    }, 
+    {
+      "type": "$lookup",
+      "filter": {
+        "Town": "East Haddam",
+        "Year":	"2012-2016",
+        "Variable":	"Margins of Error",
+        "Measure Type":	"Percent",
+        "Householder Status": "All"
+      },
+      "expected": {
+        "type": "$match",
+        "number type": "float",
+        "value": 7.39
+      } 
+    },
+    {
+      "type": "$lookup",
+      "filter": {
+        "Town": "Union",
+        "Year":	"2006-2010",
+        "Variable":	"Margins of Error",
+        "Measure Type":	"Number",
+        "Householder Status": "All"
+      },
+      "expected": {
+        "type": "$match",
+        "number type": "float",
+        "value": 129.97
+      } 
+    }
+  ],
+  "dimension_groups": [
+     {
+       "Measure Type": ["Number", "Percent"], 
+       "Variable": ["Cost-burdened Households", "Margins of Error"], 
+       "Householder Status": ["All", "Homeowner", "Renter"]
+     }
+  ]
+}
