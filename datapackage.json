@@ -107,6 +107,16 @@
       "value": "Household Characteristics",
       "type": "string"
     },
+    "numerator": {
+      "ckan_name": "Numerator",
+      "value": "Cost-burdened households, per householder status.",
+      "type": "string"
+    },
+    "denominator": {
+      "ckan_name": "Denominator",
+      "value": "Occupied housing units, per householder status.",
+      "type": "string"
+    },
     "geography": {
       "ckan_name": "Geography",
       "value": "Town",
