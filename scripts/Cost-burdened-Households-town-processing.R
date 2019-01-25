@@ -23,14 +23,14 @@ path_to_raw <- (paste0(getwd(), "/", raw_location))
 options(scipen=999)
 acsdata <- getACSData(
     getCTGeos("town"),
-    yearList = 2010:2016,
+    yearList = 2010:2017,
     table = "DP04"
 )
 
 cost_burdened <- data.table()
 for (data in acsdata) {
     year <- data@endyear
-   if (year %in% c(2015, 2016)) {
+   if (year %in% c(2015, 2016, 2017)) {
       cost_home_total_num <- acsSum(data, 219, "Homeowner Total Num") #VC159
       cost_owner_num_30 <- acsSum(data, 227, "Homeowner 30 Num") #VC163
       cost_owner_pct_30 <- acsSum(data, 228, "Homeowner 30 Pct") #VC163
@@ -262,7 +262,7 @@ cost_burdened_complete$Value <-  round(cost_burdened_complete$Value, 2)
 
 write.table(
     cost_burdened_complete,
-    file.path("data", "cost-burdened-households-town-2016.csv"),
+    file.path("data", "cost-burdened-households-town-2017.csv"),
     sep = ",",
     row.names = F,
     col.names = T,
